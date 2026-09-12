@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>يونيكِت — Retro Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#58a39b;
+    --teal-dark:#387f77;
+    --teal-darker:#164340;
+    --teal-deepest:#00241c;
+    --cream:#f4ece3;
+    --white:#ffffff;
+    --coral:#d06262;
+    --coral-bright:#f55157;
+    --yellow:#ffdb01;
+    --taupe:#ddcdbb;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    background:var(--cream);
+    color:var(--teal-deepest);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; }
+  ul{ list-style:none; margin:0; padding:0; }
+  h1,h2,h3,p{ margin:0; }
+
+  .halftone{
+    position:relative;
+  }
+  .halftone::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:radial-gradient(circle, var(--teal-deepest) 1.4px, transparent 1.6px);
+    background-size:18px 18px;
+    opacity:.07;
+    pointer-events:none;
+  }
+  .halftone-light::before{ opacity:.05; }
+  .halftone-dark::before{
+    background-image:radial-gradient(circle, var(--cream) 1.4px, transparent 1.6px);
+    opacity:.08;
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---------- eyebrow chip ---------- */
+  .chip{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--teal-deepest);
+    border:2.5px solid var(--teal-deepest);
+    padding:5px 16px;
+    font-weight:700;
+    font-size:.8rem;
+    letter-spacing:2px;
+    border-radius:999px;
+    transform:rotate(-2deg);
+    box-shadow:3px 3px 0 var(--teal-deepest);
+  }
+
+  /* ---------- hard shadow buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 30px;
+    border:3px solid var(--teal-deepest);
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:5px 5px 0 var(--teal-deepest);
+    transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease;
+    background:var(--white);
+    color:var(--teal-deepest);
+  }
+  .btn:hover{
+    transform:translate(-3px,-3px);
+    box-shadow:8px 8px 0 var(--teal-deepest);
+  }
+  .btn:active{
+    transform:translate(2px,2px);
+    box-shadow:2px 2px 0 var(--teal-deepest);
+  }
+  .btn-yellow{ background:var(--yellow); }
+  .btn-coral{ background:var(--coral-bright); color:var(--white); }
+  .btn-outline{ background:transparent; }
+  .btn-cream{ background:var(--cream); }
+
+  /* ---------- wiggle keyframes ---------- */
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(-4deg); }
+    50%{ transform:rotate(4deg); }
+  }
+  @keyframes wiggle-badge{
+    0%,100%{ transform:rotate(-9deg) translateY(0); }
+    50%{ transform:rotate(6deg) translateY(-4px); }
+  }
+
+  /* ================= NAV ================= */
+  header.nav{
+    background:var(--cream);
+    border-bottom:4px solid var(--teal-deepest);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+    gap:16px;
+  }
+  .logo-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:64px; height:64px;
+    border-radius:50%;
+    background:var(--yellow);
+    border:3px solid var(--teal-deepest);
+    font-weight:700;
+    font-size:.95rem;
+    transform:rotate(-6deg);
+    box-shadow:4px 4px 0 var(--teal-deepest);
+    flex-shrink:0;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-weight:600;
+    font-size:.98rem;
+  }
+  .nav-links a{ position:relative; padding:4px 2px; }
+  .nav-links a::after{
+    content:"";
+    position:absolute; right:0; left:0; bottom:-4px;
+    height:3px; background:var(--coral-bright);
+    transform:scaleX(0); transform-origin:right;
+    transition:transform .2s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-cta{ padding:10px 22px; font-size:.9rem; }
+  .burger{ display:none; }
+
+  /* ================= HERO ================= */
+  section.hero{
+    background:var(--cream);
+    padding:90px 0 100px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:5px solid var(--teal-deepest);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-title{
+    font-size:clamp(2.2rem, 5.5vw, 4rem);
+    font-weight:700;
+    line-height:1.25;
+  }
+  .hero-title span{
+    display:inline-block;
+    background:var(--white);
+    border:3px solid var(--teal-deepest);
+    padding:4px 14px;
+    margin:5px 6px;
+    border-radius:8px;
+    box-shadow:5px 5px 0 var(--teal-deepest);
+  }
+  .hero-title .l1{ transform:rotate(-2deg); }
+  .hero-title .l2{ transform:rotate(1deg); background:var(--yellow); }
+  .hero-title .l3{ transform:rotate(-1.5deg); background:var(--coral-bright); color:var(--white); }
+  .hero-sub{
+    margin-top:26px;
+    font-size:1.1rem;
+    line-height:1.9;
+    max-width:520px;
+    color:var(--teal-darker);
+    font-weight:500;
+  }
+  .hero-ctas{
+    margin-top:32px;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .hero-art{
+    position:relative;
+    height:420px;
+  }
+  .hero-badge{
+    position:absolute;
+    top:10%; right:10%;
+    width:180px; height:180px;
+    border-radius:50%;
+    background:var(--coral-bright);
+    color:var(--white);
+    border:4px solid var(--teal-deepest);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:700;
+    font-size:1.05rem;
+    padding:14px;
+    line-height:1.5;
+    box-shadow:6px 6px 0 var(--teal-deepest);
+    animation:wiggle-badge 4.5s ease-in-out infinite;
+  }
+  .hero-shape-a{
+    position:absolute; bottom:8%; left:6%;
+    width:140px; height:140px;
+    background:var(--teal);
+    border:4px solid var(--teal-deepest);
+    border-radius:24px;
+    transform:rotate(12deg);
+    box-shadow:6px 6px 0 var(--teal-deepest);
+  }
+  .hero-shape-b{
+    position:absolute; top:38%; left:22%;
+    width:90px; height:90px;
+    background:var(--yellow);
+    border:3px solid var(--teal-deepest);
+    border-radius:50%;
+    box-shadow:4px 4px 0 var(--teal-deepest);
+  }
+
+  /* ================= MARQUEE ================= */
+  .marquee-outer{
+    overflow:hidden;
+    background:var(--coral-bright);
+    border-top:4px solid var(--teal-deepest);
+    border-bottom:4px solid var(--teal-deepest);
+    padding:16px 0;
+  }
+  .marquee-tilt{
+    transform:rotate(-2deg) scale(1.04);
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 22s linear infinite;
+  }
+  .marquee-track span{
+    white-space:nowrap;
+    font-weight:700;
+    font-size:1.3rem;
+    color:var(--white);
+    padding:0 20px;
+    text-shadow:2px 2px 0 var(--teal-deepest);
+  }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ================= SECTION HEADS ================= */
+  .section-head{
+    text-align:center;
+    margin-bottom:52px;
+  }
+  .section-title{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    font-weight:700;
+    margin-top:14px;
+  }
+
+  /* ================= CATEGORIES ================= */
+  section.categories{
+    background:var(--teal);
+    padding:90px 0;
+    border-bottom:5px solid var(--teal-deepest);
+    position:relative;
+  }
+  .categories .section-head .chip{ background:var(--cream); }
+  .categories .section-title{ color:var(--white); text-shadow:2px 2px 0 var(--teal-deepest); }
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .cat-card{
+    background:var(--cream);
+    border:3.5px solid var(--teal-deepest);
+    border-radius:16px;
+    padding:30px 20px;
+    text-align:center;
+    box-shadow:6px 6px 0 var(--teal-deepest);
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s cubic-bezier(.34,1.56,.64,1), opacity .5s ease;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(30px) rotate(var(--r,0deg));
+  }
+  .cat-card.in-view{
+    opacity:1;
+    transform:rotate(var(--r,0deg));
+  }
+  .cat-card:hover{
+    transform:rotate(0deg) translateY(-10px) scale(1.04);
+    box-shadow:10px 10px 0 var(--teal-deepest);
+    background:var(--white);
+  }
+  .cat-icon{ font-size:2.6rem; }
+  .cat-name{ font-weight:700; font-size:1.15rem; margin-top:12px; }
+  .cat-desc{ font-size:.88rem; margin-top:8px; color:var(--teal-darker); font-weight:500; }
+
+  /* ================= PRODUCTS ================= */
+  section.products{
+    background:var(--cream);
+    padding:90px 0;
+    border-bottom:5px solid var(--teal-deepest);
+  }
+  .prod-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:28px;
+  }
+  .prod-card{
+    position:relative;
+    background:var(--white);
+    border:3px solid var(--teal-deepest);
+    border-radius:14px;
+    padding:22px 18px 26px;
+    box-shadow:6px 6px 0 var(--teal-deepest);
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s cubic-bezier(.34,1.56,.64,1), opacity .5s ease;
+    opacity:0;
+    transform:translateY(30px) rotate(var(--r,0deg));
+  }
+  .prod-card.in-view{
+    opacity:1;
+    transform:rotate(var(--r,0deg));
+  }
+  .prod-card:hover{
+    transform:rotate(0deg) translateY(-10px) scale(1.03);
+    box-shadow:10px 10px 0 var(--teal-deepest);
+  }
+  .product-visual{
+    height:120px;
+    border:3px solid var(--teal-deepest);
+    border-radius:10px;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .product-visual .shape{
+    width:60px; height:60px;
+  }
+  .pv-1{ background:var(--yellow); }
+  .pv-1 .shape{ background:var(--coral-bright); border-radius:50%; border:3px solid var(--teal-deepest); }
+  .pv-2{ background:var(--teal); }
+  .pv-2 .shape{ background:var(--cream); clip-path:polygon(50% 0,100% 100%,0 100%); border:3px solid var(--teal-deepest); }
+  .pv-3{ background:var(--coral); }
+  .pv-3 .shape{ background:var(--yellow); transform:rotate(20deg); border:3px solid var(--teal-deepest); border-radius:8px; }
+  .pv-4{ background:var(--taupe); }
+  .pv-4 .shape{ background:var(--teal-darker); border-radius:50% 10% 50% 10%; border:3px solid var(--teal-deepest); }
+  .pv-5{ background:var(--yellow); }
+  .pv-5 .shape{ background:var(--teal-dark); clip-path:polygon(0 0,100% 0,100% 70%,50% 100%,0 70%); border:3px solid var(--teal-deepest); }
+  .pv-6{ background:var(--teal-dark); }
+  .pv-6 .shape{ background:var(--coral-bright); border-radius:50%; border:3px solid var(--teal-deepest); transform:rotate(-10deg); }
+  .pv-7{ background:var(--coral-bright); }
+  .pv-7 .shape{ background:var(--cream); border-radius:10px; border:3px solid var(--teal-deepest); transform:rotate(45deg); }
+  .pv-8{ background:var(--teal); }
+  .pv-8 .shape{ background:var(--yellow); clip-path:polygon(20% 0,80% 0,100% 50%,80% 100%,20% 100%,0 50%); border:3px solid var(--teal-deepest); }
+
+  .prod-name{ font-weight:700; font-size:1.02rem; margin-top:2px; }
+  .prod-desc{ font-size:.83rem; color:var(--teal-darker); margin-top:6px; font-weight:500; line-height:1.6; }
+  .price-tag{
+    position:absolute;
+    bottom:-18px; left:-14px;
+    width:74px; height:74px;
+    border-radius:50%;
+    background:var(--yellow);
+    border:3px solid var(--teal-deepest);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    font-weight:700;
+    font-size:.85rem;
+    transform:rotate(-12deg);
+    box-shadow:3px 3px 0 var(--teal-deepest);
+  }
+  .price-tag small{ font-size:.6rem; font-weight:600; }
+  .stamp{
+    position:absolute;
+    top:-14px; left:-10px;
+    background:var(--coral-bright);
+    color:var(--white);
+    border:2.5px solid var(--teal-deepest);
+    border-radius:8px;
+    padding:5px 10px;
+    font-size:.72rem;
+    font-weight:700;
+    transform:rotate(-10deg);
+    box-shadow:3px 3px 0 var(--teal-deepest);
+    animation:wiggle 3.6s ease-in-out infinite;
+  }
+  .stamp.new{ background:var(--teal-darker); }
+
+  /* ================= STATS ================= */
+  section.stats{
+    background:var(--yellow);
+    padding:80px 0;
+    border-bottom:5px solid var(--teal-deepest);
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+    text-align:center;
+  }
+  .stat-item{ padding:10px; }
+  .stat-num{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    font-weight:700;
+    color:var(--cream);
+    -webkit-text-stroke:2px var(--teal-deepest);
+    text-shadow:4px 4px 0 var(--teal-deepest);
+  }
+  .stat-label{ font-weight:700; font-size:1.05rem; margin-top:8px; color:var(--teal-deepest); }
+
+  /* ================= NEWSLETTER ================= */
+  section.newsletter{
+    background:var(--teal-deepest);
+    color:var(--cream);
+    padding:100px 0;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    border-bottom:5px solid var(--teal-deepest);
+  }
+  .nl-sticker{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--teal-deepest);
+    border:4px solid var(--cream);
+    border-radius:16px;
+    padding:16px 34px;
+    font-size:1.6rem;
+    font-weight:700;
+    transform:rotate(-3deg);
+    box-shadow:6px 6px 0 var(--coral-bright);
+    margin-bottom:26px;
+  }
+  .nl-title{ font-size:clamp(1.6rem, 4vw, 2.4rem); font-weight:700; }
+  .nl-sub{ margin-top:14px; font-weight:500; opacity:.9; max-width:520px; margin-inline:auto; line-height:1.8; }
+  .nl-form{
+    margin-top:34px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .nl-form input{
+    font-family:inherit;
+    padding:14px 20px;
+    border-radius:10px;
+    border:3px solid var(--cream);
+    background:var(--cream);
+    color:var(--teal-deepest);
+    font-weight:600;
+    font-size:1rem;
+    min-width:260px;
+    box-shadow:5px 5px 0 var(--coral-bright);
+  }
+  .nl-form input:focus{ outline:none; }
+  .nl-form button{
+    border:3px solid var(--cream);
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    background:var(--cream);
+    border-top:5px solid var(--teal-deepest);
+    padding:70px 0 30px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+  }
+  .footer-brand .logo-badge{ margin-bottom:16px; }
+  .footer-blurb{ font-size:.92rem; line-height:1.85; color:var(--teal-darker); font-weight:500; max-width:340px; }
+  .footer-col h4{ font-size:1rem; font-weight:700; margin-bottom:16px; }
+  .footer-col ul li{ margin-bottom:10px; }
+  .footer-col ul li a{ font-size:.9rem; font-weight:500; color:var(--teal-darker); transition:color .15s; }
+  .footer-col ul li a:hover{ color:var(--coral-bright); }
+  .social-row{ display:flex; gap:14px; margin-top:18px; }
+  .social-circle{
+    width:42px; height:42px;
+    border-radius:50%;
+    border:2.5px solid var(--teal-deepest);
+    background:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:3px 3px 0 var(--teal-deepest);
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+  }
+  .social-circle:nth-child(1){ transform:rotate(-8deg); }
+  .social-circle:nth-child(2){ transform:rotate(6deg); }
+  .social-circle:nth-child(3){ transform:rotate(-4deg); }
+  .social-circle:hover{ transform:rotate(0deg) translateY(-4px); }
+  .footer-bottom{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:2px solid var(--taupe);
+    text-align:center;
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--teal-darker);
+  }
+
+  /* ================= reveal helper ================= */
+  .reveal{
+    opacity:0;
+    transform:translateY(26px);
+    transition:opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  /* ================= responsive ================= */
+  @media (max-width:1000px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-art{ height:320px; margin-top:20px; }
+    .cat-grid{ grid-template-columns:repeat(2, 1fr); }
+    .prod-grid{ grid-template-columns:repeat(2, 1fr); }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:720px){
+    .nav-links{ display:none; }
+    .nav-cta{ padding:9px 16px; font-size:.85rem; }
+  }
+  @media (max-width:600px){
+    .cat-grid{ grid-template-columns:1fr; }
+    .prod-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .stats-grid{ grid-template-columns:1fr; }
+    section.hero{ padding:60px 0 70px; }
+    section.categories, section.products{ padding:60px 0; }
+    section.stats{ padding:60px 0; }
+    section.newsletter{ padding:70px 0; }
+    .cat-card, .prod-card{ --r:0deg !important; }
+    .hero-title span{ transform:rotate(0deg) !important; }
+    .nl-sticker{ transform:rotate(-1deg); font-size:1.25rem; padding:12px 22px; }
+  }
+  @media (max-width:400px){
+    .wrap{ padding:0 16px; }
+    .logo-badge{ width:52px; height:52px; font-size:.8rem; }
+    .marquee-track span{ font-size:1.05rem; }
+    .hero-badge{ width:140px; height:140px; font-size:.9rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; }
+    .marquee-track{ animation:none; }
+    .hero-badge, .stamp{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="logo-badge">يونيكِت</div>
+    </div>
+    <nav class="nav-links">
+      <a href="#hero">الرئيسية</a>
+      <a href="#categories">الأقسام</a>
+      <a href="#products">العروض</a>
+      <a href="#newsletter">تواصل معنا</a>
+    </nav>
+    <a href="#products" class="btn btn-coral nav-cta">تسوق الآن</a>
+  </div>
+</header>
+
+<section class="hero halftone" id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="chip">منصّة كل الطلاب الجامعيين</span>
+      <h1 class="hero-title" style="margin-top:20px;">
+        <span class="l1">كل ما يحتاجه</span><br>
+        <span class="l2">يومك الجامعي…</span><br>
+        <span class="l3">بمكان واحد</span>
+      </h1>
+      <p class="hero-sub">
+        من أدوات الهندسة إلى مستلزمات المختبر، ومن الشنطة إلى القرطاسية…
+        يونيكِت يجمع لك كل اللي تحتاجه لسنتك الدراسية بسعر يناسب جيبك الطالبي وتوصيل ما يخليك تستنى.
+      </p>
+      <div class="hero-ctas">
+        <a href="#products" class="btn btn-yellow">تسوق الآن 🛒</a>
+        <a href="#categories" class="btn btn-outline">تصفح الأقسام</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-shape-a"></div>
+      <div class="hero-shape-b"></div>
+      <div class="hero-badge">خصم خاص!<br>كود UNI1 🎉</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-outer">
+  <div class="marquee-tilt">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>✦ خصم UNI1 ✦ وصل حديثاً ✦ توصيل سريع ✦ تسوق الآن ✦ خصم UNI1 ✦ وصل حديثاً ✦ توصيل سريع ✦ تسوق الآن ✦</span>
+      <span>✦ خصم UNI1 ✦ وصل حديثاً ✦ توصيل سريع ✦ تسوق الآن ✦ خصم UNI1 ✦ وصل حديثاً ✦ توصيل سريع ✦ تسوق الآن ✦</span>
+    </div>
+  </div>
+</div>
+
+<section class="categories" id="categories">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="chip">اختر مجالك</span>
+      <h2 class="section-title">تسوّق حسب قسمك الجامعي</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" style="--r:-3deg">
+        <div class="cat-icon">🛠️</div>
+        <div class="cat-name">الهندسة</div>
+        <div class="cat-desc">أدوات رسم، آلات حاسبة هندسية، وكل مستلزمات المشاريع</div>
+      </div>
+      <div class="cat-card" style="--r:2deg">
+        <div class="cat-icon">🩺</div>
+        <div class="cat-name">الطب</div>
+        <div class="cat-desc">سماعات طبية، مفكرات سريرية، ومعدات التدريب العملي</div>
+      </div>
+      <div class="cat-card" style="--r:-1.5deg">
+        <div class="cat-icon">💻</div>
+        <div class="cat-name">الحاسبات وتقنية المعلومات</div>
+        <div class="cat-desc">إكسسوارات لابتوب، ماوس، وأدوات المبرمج اليومية</div>
+      </div>
+      <div class="cat-card" style="--r:3deg">
+        <div class="cat-icon">✈️</div>
+        <div class="cat-name">السياحة والضيافة</div>
+        <div class="cat-desc">حقائب تدريب ميداني، وأدوات عملية للمقررات التطبيقية</div>
+      </div>
+      <div class="cat-card" style="--r:-2deg">
+        <div class="cat-icon">🔬</div>
+        <div class="cat-name">العلوم</div>
+        <div class="cat-desc">دفاتر مختبر، نظارات وقاية، وأدوات تجارب عملية</div>
+      </div>
+      <div class="cat-card" style="--r:1.5deg">
+        <div class="cat-icon">📊</div>
+        <div class="cat-name">إدارة الأعمال</div>
+        <div class="cat-desc">منظمات جدول، دفاتر خطط، وأدوات العروض التقديمية</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="chip">الأكثر طلباً</span>
+      <h2 class="section-title">منتجات مختارة بعناية لطلابنا</h2>
+    </div>
+    <div class="prod-grid">
+
+      <div class="prod-card" style="--r:-2deg">
+        <span class="stamp">الأكثر مبيعاً</span>
+        <div class="product-visual pv-1"><div class="shape"></div></div>
+        <div class="prod-name">دفتر "لكل مادة"</div>
+        <div class="prod-desc">دفتر مقسّم بألوان لكل مادة عشان ما تضيع ملزمة</div>
+        <div class="price-tag">٢٥<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:2.5deg">
+        <div class="product-visual pv-2"><div class="shape"></div></div>
+        <div class="prod-name">طقم أقلام هندسية</div>
+        <div class="prod-desc">دقة عالية لمشاريع القسم والرسم التقني</div>
+        <div class="price-tag">٤٥<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:-1deg">
+        <span class="stamp new">جديد</span>
+        <div class="product-visual pv-3"><div class="shape"></div></div>
+        <div class="prod-name">حقيبة ظهر "الحرم الجامعي"</div>
+        <div class="prod-desc">مقاومة للماء وتتسع للابتوب وكل كتبك</div>
+        <div class="price-tag">١٢٠<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:1.5deg">
+        <span class="stamp new">جديد</span>
+        <div class="product-visual pv-4"><div class="shape"></div></div>
+        <div class="prod-name">سماعات عزل ضوضاء للمذاكرة</div>
+        <div class="prod-desc">للتركيز وقت المكتبة أو المذاكرة الليلية</div>
+        <div class="price-tag">٨٩<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:-2.5deg">
+        <div class="product-visual pv-5"><div class="shape"></div></div>
+        <div class="prod-name">كوب حراري جامعي</div>
+        <div class="prod-desc">يحافظ على قهوتك ساخنة طول المحاضرة</div>
+        <div class="price-tag">٣٥<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:2deg">
+        <span class="stamp">الأكثر مبيعاً</span>
+        <div class="product-visual pv-6"><div class="shape"></div></div>
+        <div class="prod-name">ستاند لابتوب قابل للطي</div>
+        <div class="prod-desc">خفيف وسهل الحمل بين المحاضرات</div>
+        <div class="price-tag">٦٠<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:-1.5deg">
+        <div class="product-visual pv-7"><div class="shape"></div></div>
+        <div class="prod-name">ستيكرات تحفيزية للمذاكرة</div>
+        <div class="prod-desc">تزيّن دفترك وتخليك تكمل بلا تسويف</div>
+        <div class="price-tag">١٥<small>ر.س</small></div>
+      </div>
+
+      <div class="prod-card" style="--r:1deg">
+        <div class="product-visual pv-8"><div class="shape"></div></div>
+        <div class="prod-name">باور بنك سريع الشحن</div>
+        <div class="prod-desc">يضمن بطارية جوالك طول اليوم الدراسي</div>
+        <div class="price-tag">٧٥<small>ر.س</small></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num"><span class="count" data-target="12000">0</span>+</div>
+        <div class="stat-label">طالب وطالبة يثقون فينا</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="count" data-target="40">0</span>+</div>
+        <div class="stat-label">قسم جامعي مختلف</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="count" data-target="4.9" data-decimal="1">0</span></div>
+        <div class="stat-label">تقييم رضا العملاء</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <div class="wrap">
+    <div class="nl-sticker">كود الخصم: UNI1</div>
+    <h2 class="nl-title">لا تفوّت العروض القادمة</h2>
+    <p class="nl-sub">سجّل بريدك وخلّك أول وحد يعرف عن التخفيضات والمنتجات الجديدة قبل ما تخلص من المخزون.</p>
+    <form class="nl-form" id="nlForm">
+      <input type="email" placeholder="بريدك الإلكتروني" required>
+      <button type="submit" class="btn btn-yellow">اشترك الآن</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <div class="logo-badge">يونيكِت</div>
+      <p class="footer-blurb">
+        يونيكِت منصة سعودية تجمع كل احتياجات الطالب الجامعي في مكان واحد،
+        من القرطاسية لأدوات القسم، بأسعار طلابية وتوصيل يوصلك قبل المحاضرة.
+      </p>
+      <div class="social-row">
+        <a href="#" class="social-circle" aria-label="انستغرام">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00241c" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" class="social-circle" aria-label="تويتر إكس">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00241c" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg>
+        </a>
+        <a href="#" class="social-circle" aria-label="تيك توك">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00241c" stroke-width="2"><path d="M9 8v8a3 3 0 1 1-3-3"/><path d="M9 8a5 5 0 0 0 5 5V8a4 4 0 0 1-4-4"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#hero">الرئيسية</a></li>
+        <li><a href="#categories">الأقسام</a></li>
+        <li><a href="#products">العروض</a></li>
+        <li><a href="#newsletter">تواصل معنا</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="#categories">الهندسة</a></li>
+        <li><a href="#categories">الطب</a></li>
+        <li><a href="#categories">الحاسبات وتقنية المعلومات</a></li>
+        <li><a href="#categories">إدارة الأعمال</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <ul>
+        <li><a href="mailto:support@unikit.example">support@unikit.example</a></li>
+        <li><a href="tel:+966500000000">0500 000 000</a></li>
+        <li><a href="#">الأسئلة الشائعة</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 يونيكِت. جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // Scroll reveal for categories & products, staggered
+  var revealTargets = document.querySelectorAll('.cat-card, .prod-card');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:.2 });
+
+  revealTargets.forEach(function(el, i){
+    el.style.transitionDelay = (i % 6) * 70 + 'ms';
+    io.observe(el);
+  });
+
+  // Counting stat numbers
+  var counters = document.querySelectorAll('.count');
+  var counted = false;
+  var statsSection = document.getElementById('stats');
+
+  function animateCount(el){
+    var target = parseFloat(el.getAttribute('data-target'));
+    var decimals = parseInt(el.getAttribute('data-decimal') || '0', 10);
+    var duration = 1600;
+    var start = null;
+
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = target * eased;
+      el.textContent = decimals > 0 ? value.toFixed(decimals) : Math.floor(value).toLocaleString('en-US');
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = decimals > 0 ? target.toFixed(decimals) : target.toLocaleString('en-US');
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  if(statsSection){
+    var statsIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting && !counted){
+          counted = true;
+          counters.forEach(animateCount);
+          statsIo.disconnect();
+        }
+      });
+    }, { threshold:.4 });
+    statsIo.observe(statsSection);
+  }
+
+  // Newsletter form (front-end only demo)
+  var nlForm = document.getElementById('nlForm');
+  if(nlForm){
+    nlForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = nlForm.querySelector('button');
+      var original = btn.textContent;
+      btn.textContent = 'تم الاشتراك! ✓';
+      nlForm.reset();
+      setTimeout(function(){ btn.textContent = original; }, 2400);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
