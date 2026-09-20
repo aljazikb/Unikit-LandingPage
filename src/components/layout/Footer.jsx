@@ -1,4 +1,5 @@
 import { footerColumns } from '../../data/footer'
+import { asset } from '../../lib/asset'
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
             <div className="mb-3 flex items-center gap-3">
               <b className="logotype text-[20px]">UNIKIT</b>
               <span className="h-14 w-px bg-ink opacity-30" aria-hidden="true" />
-              <img src="/images/kau-logo.png" alt="جامعة الملك عبدالعزيز" className="h-20 w-auto" />
+              <img src={asset('/images/kau-logo.png')} alt="جامعة الملك عبدالعزيز" className="h-20 w-auto" />
             </div>
             <div className="mt-1 text-xs opacity-60">جميع الحقوق محفوظة © 2026</div>
           </div>

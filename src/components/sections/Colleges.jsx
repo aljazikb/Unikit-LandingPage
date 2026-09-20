@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { colleges, hoodies } from '../../data/colleges'
+import { asset } from '../../lib/asset'
 
 // Rows alternate: three cards, then two wider ones (like the reference). Repeats every 5 cards.
 const LAYOUT = [
@@ -64,7 +65,7 @@ function CollegeCard({ college: { name, image, href, hoodie }, index: i, ready }
         />
       ) : (
         <img
-          src="/images/logo-mark.png"
+          src={asset('/images/logo-mark.png')}
           alt=""
           aria-hidden
           className="absolute left-1/2 top-[38%] w-[45%] -translate-x-1/2 -translate-y-1/2 opacity-25 transition-transform duration-700 ease-out group-hover:scale-110 group-hover:-rotate-3"

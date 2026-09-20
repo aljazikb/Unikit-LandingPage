@@ -1,3 +1,5 @@
+import { asset } from '../lib/asset'
+
 // Colleges shown in the #colleges section.
 // href: optional store link — colleges without one stay on #colleges.
 // image: optional path in public/images — colleges without one show a branded placeholder tile.
@@ -7,14 +9,14 @@
 //   college-science.jpg     — KAUST academic building, "KAUST academic building and beacon.jpg" by Arbitrarily0 (CC BY-SA 3.0)
 //   college-engineering.jpg — KAUST administrative building, "KAUST administrative building.jpg" by Arbitrarily0 (CC BY-SA 3.0)
 export const colleges = [
-  { id: 'medicine', name: 'كلية الطب', image: '/images/college-medicine.jpg', href: 'https://kaustore.com/en/faculty-of-medicine/c1111681205' },
+  { id: 'medicine', name: 'كلية الطب', image: asset('/images/college-medicine.jpg'), href: 'https://kaustore.com/en/faculty-of-medicine/c1111681205' },
   { id: 'dentistry', name: 'كلية طب الأسنان' },
   { id: 'pharmacy', name: 'كلية الصيدلة' },
   { id: 'applied-medical', name: 'كلية العلوم الطبية التطبيقية' },
   { id: 'nursing', name: 'كلية التمريض' },
-  { id: 'science', hoodie: 'science', name: 'كلية العلوم', image: '/images/college-science.jpg', href: 'https://kaustore.com/en/faculty-of-sciences/c1109993757' },
-  { id: 'engineering', hoodie: 'engineering', name: 'كلية الهندسة', image: '/images/college-engineering.jpg' },
-  { id: 'computing', name: 'كلية الحاسبات', image: '/images/college-computing.png' },
+  { id: 'science', hoodie: 'science', name: 'كلية العلوم', image: asset('/images/college-science.jpg'), href: 'https://kaustore.com/en/faculty-of-sciences/c1109993757' },
+  { id: 'engineering', hoodie: 'engineering', name: 'كلية الهندسة', image: asset('/images/college-engineering.jpg') },
+  { id: 'computing', name: 'كلية الحاسبات', image: asset('/images/college-computing.png') },
   { id: 'economics', name: 'كلية الاقتصاد والإدارة' },
   { id: 'arts', name: 'كلية الآداب والعلوم الإنسانية' },
   { id: 'architecture', name: 'كلية عمارة وتخطيط' },
@@ -30,8 +32,8 @@ export const colleges = [
 // Real hoodies from kaustore.com, shown on the back of a college card when it flips.
 // A college picks one with `hoodie: '<key>'`; the rest cycle through them in order.
 export const hoodies = {
-  science: { name: 'بلوفر Science', price: '١٢٦٫٥', image: '/images/hoodie-science.webp' },
-  engineering: { name: 'بلوفر Engineering on Campus', price: '١٢٦٫٥', image: '/images/hoodie-engineering.webp' },
-  takeoff: { name: 'بلوفر Takeoff on Campus', price: '١٢٦٫٥', image: '/images/hoodie-takeoff.webp' },
-  matcha: { name: 'بلوفر Matcha on Campus', price: '١٢٦٫٥', image: '/images/hoodie-matcha.webp' },
+  science: { name: 'بلوفر Science', price: '١٢٦٫٥', image: asset('/images/hoodie-science.webp') },
+  engineering: { name: 'بلوفر Engineering on Campus', price: '١٢٦٫٥', image: asset('/images/hoodie-engineering.webp') },
+  takeoff: { name: 'بلوفر Takeoff on Campus', price: '١٢٦٫٥', image: asset('/images/hoodie-takeoff.webp') },
+  matcha: { name: 'بلوفر Matcha on Campus', price: '١٢٦٫٥', image: asset('/images/hoodie-matcha.webp') },
 }

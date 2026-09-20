@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { loaderCards } from '../../data/loader'
+import { asset } from '../../lib/asset'
 
 const STEP_MS = 170
 const HOLD_MS = 250
@@ -104,7 +105,7 @@ export default function Loader({ onOpen }) {
         }`}
       >
         {/* 1. Solid logo at the back: what you see wherever no photo covers it */}
-        <img src="/images/logo-mark.png" alt="UniKit" className="animate-reveal absolute inset-0 size-full" />
+        <img src={asset('/images/logo-mark.png')} alt="UniKit" className="animate-reveal absolute inset-0 size-full" />
 
         {/* 2. Pile of photos covering the solid logo */}
         <Pile step={step} leaving={leaving} />
@@ -115,7 +116,7 @@ export default function Loader({ onOpen }) {
           className="animate-reveal pointer-events-none absolute inset-0 z-10"
           style={{
             background: 'linear-gradient(115deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.12) 28%, rgba(255,255,255,.4) 40%, rgba(255,255,255,.06) 58%, rgba(255,255,255,.28) 100%)',
-            maskImage: 'url(/images/logo-mark.png)',
+            maskImage: `url(${asset('/images/logo-mark.png')})`,
             maskSize: '100% 100%',
             maskRepeat: 'no-repeat',
           }}
@@ -125,7 +126,7 @@ export default function Loader({ onOpen }) {
 
         {/* thin light edge so the glass logo reads as sitting in front of the photos */}
         <img
-          src="/images/logo-mark.png"
+          src={asset('/images/logo-mark.png')}
           alt=""
           aria-hidden
           className="animate-reveal pointer-events-none absolute inset-0 z-10 size-full opacity-60 drop-shadow-[0_0_1px_rgba(255,255,255,1)] drop-shadow-[0_0_6px_rgba(255,255,255,.55)]"
